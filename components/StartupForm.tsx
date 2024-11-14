@@ -10,6 +10,7 @@ import { formSchema } from "@/lib/validation";
 import { z } from "zod";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { createPitch } from "@/lib/actions";
 
 const StartupForm = () => {
 
@@ -33,20 +34,20 @@ const StartupForm = () => {
 
       console.log(formValues);
 
-      // const result = await createIdea(prevState, formData, pitch);
+      const result = await createPitch(prevState, formData, pitch);
 
-      // console.log(result)
-      // if (result.status === "SUCCESS") {
-      //   toast({
-      //     title: "Success",
-      //     description: "Your startup pitch has been created successfully",
-      //   });
+      if (result.status === "SUCCESS") {
 
-      //   router.push(`/startup/${result.id}`);
+        toast({
+          title: "Success",
+          description: "Your startup pitch has been created successfully",
+        });
 
-      // }
+        router.push(`/startup/${result._id}`);
 
-      // return result;
+      }
+
+      return result;
 
     } catch (error) {
 
